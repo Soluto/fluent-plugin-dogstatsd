@@ -1,6 +1,7 @@
 # fluent-plugin-dogstatsd
 
 Fluend plugin for Dogstatsd, that is statsd server for Datadog.
+This plugin was forked to use dogstatsd-ruby package version 4, which provide better performance (DNS Caching included).
 
 ## Installation
 
