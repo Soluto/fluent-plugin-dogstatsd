@@ -49,10 +49,10 @@ class DogstatsdOutputTest < Test::Unit::TestCase
     d.emit({'type' => 'histogram', 'value' => 10, 'key' => 'hello.world'}, Time.now.to_i)
     d.emit({'type' => 'timing', 'value' => 10, 'key' => 'hello.world'}, Time.now.to_i)
     d.emit({'type' => 'set', 'value' => 10, 'key' => 'hello.world'}, Time.now.to_i)
-    d.emit({'type' => 'event', 'title' => 'Deploy', 'text' => 'Revision', 'key' => 'hello.world'}, Time.now.to_i)
+    d.emit({'type' => 'event', 'title' => 'Deploy', 'text' => 'Revision', 'alert_type' => 'test', 'key' => 'hello.world'}, Time.now.to_i)
     d.run
 
-    assert_equal(d.instance.statsd.messages, [
+    assert_equal([
       [:increment, 'hello.world1', {}],
       [:increment, 'hello.world2', {}],
       [:decrement, 'hello.world', {}],
@@ -61,8 +61,8 @@ class DogstatsdOutputTest < Test::Unit::TestCase
       [:histogram, 'hello.world', 10, {}],
       [:timing, 'hello.world', 10, {}],
       [:set, 'hello.world', 10, {}],
-      [:event, 'Deploy', 'Revision', {}],
-    ])
+      [:event, 'Deploy', 'Revision', {:'alert_type' => 'test'}],
+    ], d.instance.statsd.messages)
   end
 
   def test_flat_tag
@@ -74,9 +74,9 @@ flat_tag true
     d.emit({'type' => 'increment', 'key' => 'hello.world', 'tagKey' => 'tagValue'}, Time.now.to_i)
     d.run
 
-    assert_equal(d.instance.statsd.messages, [
+    assert_equal([
       [:increment, 'hello.world', {tags: ["tagKey:tagValue"]}],
-    ])
+    ], d.instance.statsd.messages,)
   end
 
   def test_metric_type
@@ -88,9 +88,9 @@ metric_type decrement
     d.emit({'key' => 'hello.world', 'tags' => {'tagKey' => 'tagValue'}}, Time.now.to_i)
     d.run
 
-    assert_equal(d.instance.statsd.messages, [
+    assert_equal([
       [:decrement, 'hello.world', {tags: ["tagKey:tagValue"]}],
-    ])
+    ], d.instance.statsd.messages)
   end
 
   def test_use_tag_as_key
@@ -102,9 +102,9 @@ use_tag_as_key true
     d.emit({'type' => 'increment'}, Time.now.to_i)
     d.run
 
-    assert_equal(d.instance.statsd.messages, [
-      [:increment, 'dogstatsd.tag', {}],
-    ])
+    assert_equal([
+      [:increment, 'dogstatsd.tag', {}], 
+    ], d.instance.statsd.messages, )
   end
 
   def test_use_tag_as_key_fallback
@@ -116,9 +116,9 @@ use_tag_as_key_if_missing true
     d.emit({'type' => 'increment'}, Time.now.to_i)
     d.run
 
-    assert_equal(d.instance.statsd.messages, [
+    assert_equal([
       [:increment, 'dogstatsd.tag', {}],
-    ])
+    ], d.instance.statsd.messages, )
   end
 
   def test_tags
@@ -126,9 +126,9 @@ use_tag_as_key_if_missing true
     d.emit({'type' => 'increment', 'key' => 'hello.world', 'tags' => {'key' => 'value'}}, Time.now.to_i)
     d.run
 
-    assert_equal(d.instance.statsd.messages, [
+    assert_equal([
       [:increment, 'hello.world', {tags: ["key:value"]}],
-    ])
+    ], d.instance.statsd.messages)
   end
 
   def test_sample_rate_config
@@ -140,9 +140,9 @@ sample_rate .5
     d.emit({'type' => 'increment', 'key' => 'tag'}, Time.now.to_i)
     d.run
 
-    assert_equal(d.instance.statsd.messages, [
+    assert_equal([
       [:increment, 'tag', {sample_rate: 0.5}],
-    ])
+    ], d.instance.statsd.messages)
   end
 
   def test_sample_rate
@@ -150,9 +150,9 @@ sample_rate .5
     d.emit({'type' => 'increment', 'sample_rate' => 0.5, 'key' => 'tag'}, Time.now.to_i)
     d.run
 
-    assert_equal(d.instance.statsd.messages, [
+    assert_equal([
       [:increment, 'tag', {sample_rate: 0.5}],
-    ])
+    ], d.instance.statsd.messages)
   end
 
   private

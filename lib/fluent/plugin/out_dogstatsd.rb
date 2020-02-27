@@ -21,16 +21,16 @@ module Fluent
     def initialize
       super
 
-      require 'statsd' # dogstatsd-ruby
+      require 'datadog/statsd' # dogstatsd-ruby
     end
 
     def start
       super
 
-      host = @host || Statsd::DEFAULT_HOST
-      port = @port || Statsd::DEFAULT_PORT
+      host = @host || '127.0.0.1'
+      port = @port || 8125
 
-      @statsd ||= Statsd.new(host, port)
+      @statsd ||= Datadog::Statsd.new(host, port)
     end
 
     def format(tag, time, record)

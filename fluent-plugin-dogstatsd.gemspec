@@ -9,7 +9,7 @@ Gem::Specification.new do |spec|
   spec.authors       = ["Ryota Arai"]
   spec.email         = ["ryota.arai@gmail.com"]
   spec.summary       = %q{Fluent plugin for Dogstatsd, that is statsd server for Datadog.}
-  spec.homepage      = "https://github.com/ryotarai/fluent-plugin-dogstatsd"
+  spec.homepage      = "https://github.com/soluto/fluent-plugin-dogstatsd"
   spec.license       = "MIT"
 
   spec.files         = `git ls-files -z`.split("\x0")
@@ -18,9 +18,9 @@ Gem::Specification.new do |spec|
   spec.require_paths = ["lib"]
 
   spec.add_dependency "fluentd"
-  spec.add_dependency "dogstatsd-ruby", "~> 1.4.1"
+  spec.add_dependency "dogstatsd-ruby", "~> 4.7.0"
 
-  spec.add_development_dependency "bundler", "~> 1.6"
+  spec.add_development_dependency "bundler", "~> 2.0.2"
   spec.add_development_dependency "rake"
   spec.add_development_dependency "test-unit"
 end
