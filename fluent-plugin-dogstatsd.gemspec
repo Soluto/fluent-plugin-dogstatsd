@@ -6,8 +6,8 @@ require 'fluent/plugin/dogstatsd/version'
 Gem::Specification.new do |spec|
   spec.name          = "fluent-plugin-dogstatsd"
   spec.version       = Fluent::Plugin::Dogstatsd::VERSION
-  spec.authors       = ["Ryota Arai"]
-  spec.email         = ["ryota.arai@gmail.com"]
+  spec.authors       = ["Shai Katz"]
+  spec.email         = ["shai@soluto.com"]
   spec.summary       = %q{Fluent plugin for Dogstatsd, that is statsd server for Datadog.}
   spec.homepage      = "https://github.com/soluto/fluent-plugin-dogstatsd"
   spec.license       = "MIT"

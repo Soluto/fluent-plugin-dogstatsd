@@ -1,4 +1,5 @@
-Copyright (c) 2014 Ryota Arai
+Portions Copyright (c) 2020 Soluto
+Portions Copyright (c) 2014 Ryota Arai
 
 MIT License
 
