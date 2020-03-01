@@ -48,6 +48,7 @@ class DogstatsdOutputTest < Test::Unit::TestCase
     d.emit({'type' => 'gauge', 'value' => 10, 'key' => 'hello.world'}, Time.now.to_i)
     d.emit({'type' => 'histogram', 'value' => 10, 'key' => 'hello.world'}, Time.now.to_i)
     d.emit({'type' => 'timing', 'value' => 10, 'key' => 'hello.world'}, Time.now.to_i)
+    d.emit({'type' => 'set', 'value' => 10, 'key' => 'hello.world'}, Time.now.to_i)
     d.emit({'type' => 'event', 'title' => 'Deploy', 'text' => 'Revision', 'alert_type' => 'test', 'key' => 'hello.world'}, Time.now.to_i)
     d.run
 
