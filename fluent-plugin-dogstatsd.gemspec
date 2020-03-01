@@ -4,7 +4,7 @@ $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require 'fluent/plugin/dogstatsd/version'
 
 Gem::Specification.new do |spec|
-  spec.name          = "fluent-plugin-dogstatsd"
+  spec.name          = "fluent-plugin-dogstatsd-soluto"
   spec.version       = Fluent::Plugin::Dogstatsd::VERSION
   spec.authors       = ["Shai Katz"]
   spec.email         = ["shai@soluto.com"]
